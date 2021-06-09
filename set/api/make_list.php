@@ -107,6 +107,8 @@
             $gad_code = '';
         }
         $list_tpl = str_replace("{google_adsense}",$gad_code,$list_tpl);
+
+        $list_tpl = str_replace("{blog_name}",$blog_conf['blog_name'],$list_tpl);
         
         $strs = '';
 

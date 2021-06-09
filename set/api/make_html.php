@@ -25,6 +25,9 @@
         // 读取 blog.htm
         $blog = read_file("../../tpl/blog.htm");
 
+         // 读取 side_list
+        $side_list = read_file("../../blog/side_list.html");
+
         // 读取配置
         $json_string = file_get_contents('../../data/blog.json'); 
         $blog_conf = json_decode($json_string, true);
@@ -82,5 +85,6 @@ conf: \'{conf}\'
         $blog = str_replace('{pay_txt}', $pay_txt, $blog);
         $blog = str_replace('{ali_qrcode}', $ali_qrcode, $blog);
         $blog = str_replace('{wx_qrcode}', $wx_qrcode, $blog);
+        $blog = str_replace('{blog_name}', $blog_conf['blog_name'], $blog);
         write_file($file_path, $blog); 
     }

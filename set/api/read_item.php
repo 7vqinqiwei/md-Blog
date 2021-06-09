@@ -47,6 +47,14 @@
             }
         }
 
+        $blog_path = '../../data/blog.json';
+        if(file_exists($blog_path)) {
+             // 读取 blog.json
+             $blog_conf_str = read_file($blog_path);
+             echo $blog_conf_str;
+             $blog_conf = json_decode($blog_conf_str, true);
+        }
+
         $json_list = '../../data/list.json';
         
         if(file_exists($json_list)){
@@ -113,7 +121,7 @@
             $site_map = $site_map."<li><a href='".$now_http.$_SERVER['SERVER_NAME'].$now_path."'>".$item['title']."</a></li>";
         }
         $site_map = $site_map."</ol>
-        <p>Powered by <a target='_blank' href='https://github.com/ycmbcd/md-Blog'> md-Blog</a></p></body>
+        <p>Powered by <a target='_blank' href='".$blog_conf['github']."'> ".$blog_conf['blog_name']."</a></p></body>
         </html>";
         write_file('../../Sitemap.html', $site_map);
         echo '[ok] 生成网站地图 [../../Sitemap.html]<br>';

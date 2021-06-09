@@ -20,6 +20,9 @@ function make_search(){
     // 替换标题
     $search_tpl = str_replace("{title}", $blog_conf['blog_name'], $search_tpl);
 
+    // 替换博客名称
+    $search_tpl = str_replace("{blog_name}", $blog_conf['blog_name'], $search_tpl);
+
     // 加载主题色
     $search_tpl = str_replace("{b_color}",$blog_conf['b_color'],$search_tpl);
 

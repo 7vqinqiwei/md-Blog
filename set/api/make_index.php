@@ -48,6 +48,7 @@
             $gad_code = '';
         }
         $index_tpl = str_replace("{google_adsense}",$gad_code,$index_tpl);
+        $index_tpl = str_replace("{blog_name}",$blog_conf['blog_name'],$index_tpl);
 
         del_dir('../../index/');
         make_dir('../../index/');
@@ -56,10 +57,15 @@
         $path = '../../index/';
         make_list_page($page_arr, $title, $index_tpl, $total_page, $path);
 
-        // 读取 list.htm
+        // 读取 list.htm 的第一页作为首页
         $blog = read_file("../../index/1.html");
 
         $index = str_replace('class="page_a" href="./', 'class="page_a" href="./index/', $blog);
+
+        $blog_index_title = $blog_conf['blog_name'].'-第1页';
+        // echo $blog_index_title;
+        $index = str_replace($blog_index_title, $blog_conf['blog_name'], $index);
+
         write_file($file, $index);
         
         echo '[ok] 生成主页 ['.$file.']';
