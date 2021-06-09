@@ -210,6 +210,7 @@ function ck_alipay(){
 function uploadImage(method_id) {
     var imageForm = new FormData();
     imageForm.append("qrImg", $("#"+method_id).get(0).files[0]);
+    imageForm.append("fileName", method_id);
     var url = '../set/api/upload.php';
     $.ajax({
         type: 'POST',
