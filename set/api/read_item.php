@@ -2,9 +2,11 @@
 
     // 遍历文件
     function read_item($dir_arr){
-        // setlocale(LC_ALL, 'zh_CN.GBK'); // windows
-        setlocale(LC_ALL, 'zh_CN.UTF8'); // linux
-
+        if(strtoupper(substr(PHP_OS,0,3)) === 'WIN') {
+            setlocale(LC_ALL, 'zh_CN.GBK'); // windows
+        } else {
+            setlocale(LC_ALL, 'zh_CN.UTF8'); // linux
+        }
         $b_list = array();
 
         $md_id = 0; 
@@ -104,7 +106,8 @@
             $arc_arr = explode(' <span style="display: none;">不要删除</span>',$html);
             $arc_info = strip_tags(stripslashes($arc_arr[1]));
             $arc_info = trim($arc_info);
-            $arc_info = mb_strcut($arc_info,0,420,'utf-8');
+//             $arc_info = mb_strcut($arc_info,0,420,'utf-8');
+            $arc_info = substr($arc_info,0,420,'utf-8');
             $b_list[$key]['arc_info'] = $arc_info;
             // 站点地图
             $site_map = $site_map."<li><a href='".$now_http.$_SERVER['SERVER_NAME'].$now_path."'>".$item['title']."</a></li>";

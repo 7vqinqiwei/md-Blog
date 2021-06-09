@@ -1,8 +1,11 @@
 <?php
     // 遍历目录
     function read_md($dir){
-        // setlocale(LC_ALL, 'zh_CN.GBK'); // windows
-        setlocale(LC_ALL, 'zh_CN.UTF8'); // linux
+        if(strtoupper(substr(PHP_OS,0,3)) === 'WIN') {
+            setlocale(LC_ALL, 'zh_CN.GBK'); // windows
+        } else {
+            setlocale(LC_ALL, 'zh_CN.UTF8'); // linux
+        }
 
         if(!is_dir($dir)) return false;
         $handle = opendir($dir);
