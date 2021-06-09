@@ -163,9 +163,11 @@ $(function(){
     var video_next = '">【抱歉】您的浏览器不支持视频播放，请更换浏览器。</video>';
     var v_reg_pre = '&lt;md-video&gt;';
     var v_reg_next = '&lt;/md-video&gt;';
-    var v_new_html = v_blog_html.replace(new RegExp(v_reg_pre, 'g'), video_pre);
-    v_new_html = v_new_html.replace(new RegExp(v_reg_next, 'g'), video_next);
-    $('#blog_body').html(v_new_html);
+    if (v_blog_html) {
+        var v_new_html = v_blog_html.replace(new RegExp(v_reg_pre, 'g'), video_pre);
+        v_new_html = v_new_html.replace(new RegExp(v_reg_next, 'g'), video_next);
+        $('#blog_body').html(v_new_html);
+    }
 
     $('video').each(function(){
         var _this = $(this);
@@ -198,9 +200,11 @@ $(function(){
     var audio_next = '">【抱歉】您的浏览器不支持音频播放，请更换浏览器。</audio>';
     var a_reg_pre = '&lt;md-audio&gt;';
     var a_reg_next = '&lt;/md-audio&gt;';
-    var a_new_html = a_blog_html.replace(new RegExp(a_reg_pre, 'g'), audio_pre);
-    a_new_html = a_new_html.replace(new RegExp(a_reg_next, 'g'), audio_next);
-    $('#blog_body').html(a_new_html);
+    if (a_blog_html) {
+        var a_new_html = a_blog_html.replace(new RegExp(a_reg_pre, 'g'), audio_pre);
+        a_new_html = a_new_html.replace(new RegExp(a_reg_next, 'g'), audio_next);
+        $('#blog_body').html(a_new_html);
+    }
 
     $('audio').each(function(i){
         var _this = $(this);
