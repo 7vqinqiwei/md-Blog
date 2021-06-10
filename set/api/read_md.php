@@ -15,7 +15,13 @@
             while(($fl = readdir($handle)) !== false){
                 $temp = $dir.DIRECTORY_SEPARATOR.$fl;
                 if(is_dir($temp) && $fl!='.' && $fl != '..'){
-                    $dir_names[$index]['name'] = basename($temp);
+                    $name = basename($temp);
+                    if (strtoupper(substr(PHP_OS,0,3)) !== 'WIN') {
+                        $name = iconv('GB2312', 'UTF-8', $name);
+                    }
+
+                    $dir_names[$index]['name'] = $name;
+
                     $dir_names[$index]['ctime'] = filectime($temp);
                     $dir_names[$index]['dir'] = $temp;
                     $index = $index + 1;
