@@ -51,7 +51,6 @@
         if(file_exists($blog_path)) {
              // 读取 blog.json
              $blog_conf_str = read_file($blog_path);
-             echo $blog_conf_str;
              $blog_conf = json_decode($blog_conf_str, true);
         }
 
@@ -61,23 +60,23 @@
             // 读取 list.json
             $json_str = read_file($json_list);
             $data = json_decode($json_str, true);
+            if (is_array($data)) {
+                foreach($data as $o_val){
+                    foreach($md_arr as $md_key => $md_val){
+                        $now_item = array();
 
-            foreach($data as $o_val){
-                
-                foreach($md_arr as $md_key => $md_val){
-                    $now_item = array();
-
-                    if($md_val['md_dir'] === $o_val['md_dir']){   // 如果存在该 md
-                        $now_item['title'] = $md_val['title'];  // 更新标题
-                        $now_item['url'] = '/blog/html/'.$o_val['id'].'.html';    // 更新 URL
-                        $now_item['list_id'] = $md_val['list_id'];  // 更新 list_id
-                        $now_item['file_mtime'] = $md_val['file_mtime'];    // 更新更新时间
-                        $now_item['file_ctime'] = $o_val['file_ctime']; // 创建时间保留
-                        $now_item['id'] = $o_val['id'];    // id保留
-                        $now_item['md_dir'] = $o_val['md_dir'];    // 保留目录
-                        $now_item['list_name'] = $o_val['list_name'];  // 保留 list_name
-                        unset($md_arr[$md_key]);
-                        array_push($b_list, $now_item);
+                        if($md_val['md_dir'] === $o_val['md_dir']){   // 如果存在该 md
+                            $now_item['title'] = $md_val['title'];  // 更新标题
+                            $now_item['url'] = '/blog/html/'.$o_val['id'].'.html';    // 更新 URL
+                            $now_item['list_id'] = $md_val['list_id'];  // 更新 list_id
+                            $now_item['file_mtime'] = $md_val['file_mtime'];    // 更新更新时间
+                            $now_item['file_ctime'] = $o_val['file_ctime']; // 创建时间保留
+                            $now_item['id'] = $o_val['id'];    // id保留
+                            $now_item['md_dir'] = $o_val['md_dir'];    // 保留目录
+                            $now_item['list_name'] = $o_val['list_name'];  // 保留 list_name
+                            unset($md_arr[$md_key]);
+                            array_push($b_list, $now_item);
+                        }
                     }
                 }
             }
@@ -114,8 +113,9 @@
             $arc_arr = explode(' <span style="display: none;">不要删除</span>',$html);
             $arc_info = strip_tags(stripslashes($arc_arr[1]));
             $arc_info = trim($arc_info);
-//             $arc_info = mb_strcut($arc_info,0,420,'utf-8');
-            $arc_info = substr($arc_info,0,420,'utf-8');
+            // mbstring 需要开启
+            $arc_info = mb_strcut($arc_info,0,420,'utf-8');
+//             $arc_info = substr($arc_info,0,420);
             $b_list[$key]['arc_info'] = $arc_info;
             // 站点地图
             $site_map = $site_map."<li><a href='".$now_http.$_SERVER['SERVER_NAME'].$now_path."'>".$item['title']."</a></li>";
@@ -126,7 +126,10 @@
         write_file('../../Sitemap.html', $site_map);
         echo '[ok] 生成网站地图 [../../Sitemap.html]<br>';
         // 保存到 list.json
-        $json = json_encode($b_list);
+        //JSON_PARTIAL_OUTPUT_ON_ERROR 512 支持表情
+        //JSON_UNESCAPED_UNICODE 256 //不支持表情
+        $json = json_encode($b_list,JSON_PARTIAL_OUTPUT_ON_ERROR);
+//         echo '列表JSON信息--'.$json;
         write_file('../../data/list.json', $json);
     }
     

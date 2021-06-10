@@ -4,7 +4,7 @@
         $file = '../../index.html';
         $title = $blog_conf['blog_name'];
         // 读取 blog 参数
-        $json_string = file_get_contents('../../data/blog.json'); 
+        $json_string = file_get_contents('../../data/blog.json');
         $blog_conf = json_decode($json_string, true);
         $arc_top_title = $blog_conf['arc_top_title'];
         
@@ -13,12 +13,14 @@
         $arr_list = json_decode($blog_list, true);
 
         // 置顶
-        foreach($arr_list as $key => $val){
-            if($val['title'] == $arc_top_title){
-                $arr_list[$key]['title'] = '【置顶】'.$arr_list[$key]['title'];
-                $arr = $arr_list[$key];
-                unset($arr_list[$key]);
-                array_unshift($arr_list, $arr);
+        if(is_array($arr_list)) {
+            foreach($arr_list as $key => $val){
+                if($val['title'] == $arc_top_title){
+                    $arr_list[$key]['title'] = '【置顶】'.$arr_list[$key]['title'];
+                    $arr = $arr_list[$key];
+                    unset($arr_list[$key]);
+                    array_unshift($arr_list, $arr);
+                }
             }
         }
 

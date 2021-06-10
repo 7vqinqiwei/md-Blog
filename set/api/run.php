@@ -10,6 +10,7 @@
     require_once('./read_item.php');
     require_once('./make_header.php');
     require_once('./make_index.php');
+    require_once('./make_side_list.php');
     require_once('./make_search.php');
     require_once('./make_list.php');
     require_once('./make_list_page.php');
@@ -37,20 +38,29 @@
         make_dir('../../blog/html');
 
         // 生成页头
+
         make_header($blog_conf, '../../');
+        echo '生成头部';
+
+        make_side_list();
 
         // 读取 md
         read_md('../../md');
+        echo '生成MD';
 
         // 生成 list
         make_list();
+        echo '生成列表';
 
         // 生成首页
         make_index($blog_conf);
+        echo '生成首页';
 
         // 生成搜索页
         make_search();
+        echo '生成收索爷';
 
         // 清理缓存点击
         clear_cache();
+        echo '清楚缓存';
     }

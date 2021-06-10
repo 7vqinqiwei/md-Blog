@@ -3,7 +3,7 @@ function make_search(){
     $file = "../../blog/search.html";
 
     // 读取配置
-    $json_string = file_get_contents('../../data/blog.json'); 
+    $json_string = file_get_contents('../../data/blog.json');
     $blog_conf = json_decode($json_string, true);
 
     // 读取 search.htm

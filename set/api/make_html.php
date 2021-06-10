@@ -29,7 +29,7 @@
         $side_list = read_file("../../blog/side_list.html");
 
         // 读取配置
-        $json_string = file_get_contents('../../data/blog.json'); 
+        $json_string = file_get_contents('../../data/blog.json');
         $blog_conf = json_decode($json_string, true);
 
         if($blog_conf['cy_status'] == 'on'){
