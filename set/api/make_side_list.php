@@ -59,7 +59,7 @@
             <textarea readonly class="my_info box gray">'.$blog_conf['my_info'].'</textarea>
             <hr style="margin-top:0;">
             <div class="form-group">
-                <form action="/set/api/search.php">
+                <form action="/set/api/search.php" onsubmit="return api_search_check();">
                     <input type="search" autocomplete="off" name="t" id="bd_txt" placeholder="请输入关键字" class="search_txt form-field" />
                     <button class="f_left search_btn pointer" type="submit"><i class="fa fa-search"></i> 搜索</button>
                     <div onclick="bd_search()" class="f_left icon pointer bd_search_btn">
@@ -72,6 +72,14 @@
             </div>
         </div>
         <script>
+            function api_search_check(){
+                var searchVal = $("#bd_txt").val();
+                if (searchVal == undefined || searchVal == "" || searchVal.length == 0) {
+                    return false;
+                } else {
+                   return true;
+               }
+            }
             function bd_search(){
                 var bd_txt = document.getElementById("bd_txt").value;
                 var site_url = window.location.host;
