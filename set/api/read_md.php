@@ -16,10 +16,6 @@
                 $temp = $dir.DIRECTORY_SEPARATOR.$fl;
                 if(is_dir($temp) && $fl!='.' && $fl != '..'){
                     $name = basename($temp);
-                    if (strtoupper(substr(PHP_OS,0,3)) !== 'WIN') {
-                        $name = iconv('GB2312', 'UTF-8', $name);
-                    }
-
                     $dir_names[$index]['name'] = $name;
 
                     $dir_names[$index]['ctime'] = filectime($temp);

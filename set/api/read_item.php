@@ -2,13 +2,10 @@
 
     // 遍历文件
     function read_item($dir_arr){
-        $isWin = FALSE;
         if(strtoupper(substr(PHP_OS,0,3)) === 'WIN') {
             setlocale(LC_ALL, 'zh_CN.GBK'); // windows
-            $isWin = TRUE;
         } else {
             setlocale(LC_ALL, 'zh_CN.UTF8'); // linux
-            $isWin = FALSE;
         }
         $b_list = array();
 
@@ -32,9 +29,6 @@
                             $file_mtime = filemtime($temp);  // 文件修改时间
 
                             $title = basename($temp);
-                            if ($isWin === FALSE) {
-                                $title = iconv('GB2312', 'UTF-8', $title);
-                            }
 
                             $title = str_replace('.md','',$title);
                             echo '文件名称-'.$title.'</br>';
