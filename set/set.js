@@ -167,8 +167,8 @@ function make_html(){
     $("#make_status").text('生成中，请稍等 ...');
     setTimeout(function(){
         $.post("./api/run.php",{run:'start'},function(res){
-            var close = '<br><button onclick="hide_info()" class="btn danger col-4 col-offset-4"><i class="fa fa-fw fa-close"></i>关 闭</button><div class="clear"></div><br>';
-            $("#run_info").show(100).html(close).append(res).append(close);
+            var close = '<br><div class="row text-center"><button onclick="hide_info()" class="btn danger col-4 col-offset-4"><i class="fa fa-fw fa-close"></i>关 闭</button></div><div class="clear"></div><br>';
+            $("#run_info").show(100).html(close).append(res);
             $("#make_status").text('静态生成');
         });
     },1000)
