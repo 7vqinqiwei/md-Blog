@@ -16,11 +16,15 @@
                 $temp = $dir.DIRECTORY_SEPARATOR.$fl;
                 if(is_dir($temp) && $fl!='.' && $fl != '..'){
                     $name = basename($temp);
-                    $dir_names[$index]['name'] = $name;
+                    // 去除隐藏文件 . 开头的文件目录
+                    if (strpos($name, '.') !== 0) {
+                        echo '遍历的文件目录-'.$name.'</br>';
+                        $dir_names[$index]['name'] = $name;
 
-                    $dir_names[$index]['ctime'] = filectime($temp);
-                    $dir_names[$index]['dir'] = $temp;
-                    $index = $index + 1;
+                        $dir_names[$index]['ctime'] = filectime($temp);
+                        $dir_names[$index]['dir'] = $temp;
+                        $index = $index + 1;
+                    }
                 }
             }
         }
